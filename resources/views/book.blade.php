@@ -1,5 +1,5 @@
 @extends('layouts.main')
-
+{{-- @dd($book) --}}
 @section('container')
     <h3>Halaman Buku</h3>    
     <br>
