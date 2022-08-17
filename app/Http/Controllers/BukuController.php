@@ -10,14 +10,14 @@ class BukuController extends Controller
     public function index(){
         return view('book-loan', [
             'title' => 'Peminjaman',
-            'books' => Buku::all()
+            'books' => Buku::latest()->get()
         ]);
     }
 
-    public function show($id){
+    public function show(Buku $buku){
         return view('book', [
             'title' => 'Buku',
-            'book'  => Buku::find($id)
+            'book'  => $buku
         ]);
     }
 }

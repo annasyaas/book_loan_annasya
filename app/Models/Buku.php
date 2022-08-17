@@ -2,30 +2,23 @@
 
 namespace App\Models;
 
-class Buku
-{
-    private static $book_posts = [
-        [
-            'id'    => 1,
-            'buku'  => 'judul buku 1',
-            'desc'  => 'about buku 1'
-        ],
-        [
-            'id'    => 2,
-            'buku'  => 'judul buku 2',
-            'desc'  => 'about buku 2'
-        ]
-    ];
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-    public static function all()
+class Buku extends Model
+{
+    use HasFactory;
+
+    // protected $fillable = ['judul','desc'];
+    protected $guarded = ['id'];
+
+    public function category()
     {
-        return collect(self::$book_posts);
+        return $this->belongsTo(Category::class);
     }
 
-    public static function find($id)
+    public function user()
     {
-        $books = static::all();
-
-        return $books->firstWhere('id',$id);
+        return $this->belongsTo(User::class);
     }
 }

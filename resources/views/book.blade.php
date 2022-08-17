@@ -4,9 +4,11 @@
     <h3>Halaman Buku</h3>    
     <br>
     <article>
-        <h4>ID Buku : {{ $book['id'] }}</h4>
-        <h5>Judul Buku : {{ $book['buku'] }}</h5>
-        <h5>Deskripsi Buku : {{ $book['desc'] }}</h5>
+        <h5>{{ $book->judul }}</h5>
+        <h6>By <a href="/user/{{ $book->user->id }}" class="text-decoration-none"> {{ $book->user->name }} </a> in 
+            <a href="/categories/{{ $book->category->slug }}">
+            {{ $book->category->name }}</a></h6>
+        <h5>{{ $book->desc }}</h5>
     </article>
     <br>
     <a href="/pinjam">Back</a>
