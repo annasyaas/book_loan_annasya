@@ -9,7 +9,8 @@ class BukuController extends Controller
 {
     public function index(){
         return view('book-loan', [
-            'title' => 'Peminjaman',
+            'title' => 'Semua Buku',
+            'active' => 'buku',
             'books' => Buku::latest()->get()
         ]);
     }
@@ -17,6 +18,7 @@ class BukuController extends Controller
     public function show(Buku $buku){
         return view('book', [
             'title' => 'Buku',
+            'active' => 'buku',
             'book'  => $buku
         ]);
     }

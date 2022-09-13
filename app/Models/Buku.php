@@ -11,6 +11,7 @@ class Buku extends Model
 
     // protected $fillable = ['judul','desc'];
     protected $guarded = ['id'];
+    protected $with = ['user', 'category'];
 
     public function category()
     {

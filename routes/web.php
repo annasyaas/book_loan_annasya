@@ -18,11 +18,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing-page', [
-        'title'  => "Beranda"
+        'title'  => "Beranda",
+        'active' => 'beranda'
     ]);
 });
 
-Route::get('/pinjam', [BukuController::class, 'index']);
+Route::get('/buku', [BukuController::class, 'index']);
 
 Route::get('/bukus/{buku:slug}', [BukuController::class, 'show']);
 
@@ -30,22 +31,23 @@ Route::get('/user/{user:username}', function(User $user){
     return view('user', [
         'title' => 'Penulis',
         'name'  => $user->name,
-        'books' => $user->books
+        'books' => $user->books->load(['user', 'category'])
     ]);
 });
 
 Route::get('/categories', function() {
     return view('categories', [
         'title' => 'Categories',
+        'active' => 'kategori',
         'categories' => Category::all()
     ]);
 });
 
 Route::get('/categories/{category:slug}', function(Category $category){
     return view('category', [
-        'title' => $category->name,
-        'books' => $category->books,
-        'category' => $category->name
+        'title' => "Post By Category : $category->name",
+        'active' => 'kategori',
+        'books' => $category->books->load(['user', 'category']),
     ]);
 });
 
