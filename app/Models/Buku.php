@@ -9,9 +9,31 @@ class Buku extends Model
 {
     use HasFactory;
 
-    // protected $fillable = ['judul','desc'];
     protected $guarded = ['id'];
     protected $with = ['user', 'category'];
+
+    public function scopeFilter($query, array $filters)
+    {        
+        // searching untuk judul atau deskripsi buku
+        $query->when($filters['search'] ?? false, function($query, $search){
+            return $query->where('judul', 'like', '%'. $search .'%')
+                   ->orWhere('desc', 'like', '%'. $search .'%');
+        });
+
+        // searching jika pencarian memiliki kategori
+        $query->when($filters['category'] ?? false, function($query, $category){
+            return $query->whereHas('category', function($query) use ($category){
+                $query->where('slug', $category);
+            });
+        });
+
+        //searching jika pencarian memiliki author
+        $query->when($filters['author'] ?? false, fn($query, $author) => 
+            $query->whereHas('user', fn($query) =>
+                $query->where('username', $author)
+            )
+        );
+    }
 
     public function category()
     {

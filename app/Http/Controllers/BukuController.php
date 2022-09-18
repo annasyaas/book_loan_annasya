@@ -11,7 +11,7 @@ class BukuController extends Controller
         return view('book-loan', [
             'title' => 'Semua Buku',
             'active' => 'buku',
-            'books' => Buku::latest()->get()
+            'books' => Buku::latest()->filter(request(['search', 'category', 'author']))->get()
         ]);
     }
 

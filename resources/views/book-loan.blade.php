@@ -1,15 +1,30 @@
 @extends('layouts.main')
 
 @section('container')
-    <h1>{{ $title }}</h1>
-    <br>    
+    <h1 class="text-center my-3">{{ $title }}</h1>
+    <div class="row justify-content-center mb-3">
+        <div class="col-md-6">
+            <form action="/buku">
+                @if (request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @elseif (request('author'))
+                    <input type="hidden" name="author" value="{{ request('author') }}">
+                @endif
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search.." name="search" value="{{ request('search') }}">
+                    <button class="btn btn-danger" type="submit">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @if (count($books))
     <div class="container">
         <div class="row">
             @foreach ($books as $book)
             <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="position-absolute px-2 py-1" style="background-color: rgba(0,0,0,0.7)">
-                        <a href="/categories/{{ $book->category->slug }}" class="text-decoration-none text-white">
+                        <a href="/buku?category={{ $book->category->slug }}" class="text-decoration-none text-white">
                             {{ $book->category->name }}
                         </a>
                     </div>
@@ -22,8 +37,7 @@
                       </h5>
                       <p>
                         <small class="text-muted">
-                            By <a href="/user/{{ $book->user->username }}" class="text-decoration-none"> {{ $book->user->name }} </a> 
-                            {{-- in <a href="/categories/{{ $book->category->slug }}" class="text-decoration-none"> {{ $book->category->name }} </a> --}}
+                            By <a href="/buku?author={{ $book->user->username }}" class="text-decoration-none"> {{ $book->user->name }} </a> 
                             {{ $book->created_at->diffForHumans() }}
                         </small>
                       </p>
@@ -34,5 +48,14 @@
             @endforeach
         </div>
     </div>
+    @else
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <b>No Books Found.</b>
+            </div>
+        </div>
+    </div>        
+    @endif
     
 @endsection
