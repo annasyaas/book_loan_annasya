@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\BukuController;
 use App\Models\Category; 
-use App\Models\User; 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BukuController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,14 +28,6 @@ Route::get('/buku', [BukuController::class, 'index']);
 
 Route::get('/bukus/{buku:slug}', [BukuController::class, 'show']);
 
-Route::get('/user/{user:username}', function(User $user){
-    return view('user', [
-        'title' => 'Penulis',
-        'name'  => $user->name,
-        'books' => $user->books->load(['user', 'category'])
-    ]);
-});
-
 Route::get('/categories', function() {
     return view('categories', [
         'title' => 'Categories',
@@ -43,11 +36,6 @@ Route::get('/categories', function() {
     ]);
 });
 
-Route::get('/categories/{category:slug}', function(Category $category){
-    return view('category', [
-        'title' => "Post By Category : $category->name",
-        'active' => 'kategori',
-        'books' => $category->books->load(['user', 'category']),
-    ]);
-});
+Route::get('/login', [LoginController::class, 'index']);
 
+Route::get('/register', [RegisterController::class, 'index']);

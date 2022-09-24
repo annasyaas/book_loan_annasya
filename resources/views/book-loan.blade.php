@@ -57,5 +57,9 @@
         </div>
     </div>        
     @endif
+
+    <div class="d-flex justify-content-end">
+        {{ $books->links() }}
+    </div>
     
 @endsection

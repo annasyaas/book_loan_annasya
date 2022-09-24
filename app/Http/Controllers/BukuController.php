@@ -3,15 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BukuController extends Controller
 {
     public function index(){
+        
+        $title = '';
+
+        if(request('category')){
+            $category = Category::firstWhere('slug', request('category'));
+            $title = ' in ' . $category->name;
+        } 
+        if(request('author')){
+            $user = User::firstWhere('username', request('author'));
+            $title = ' by ' . $user->name;
+        } 
+
         return view('book-loan', [
-            'title' => 'Semua Buku',
+            'title' => 'All Books' . $title,
             'active' => 'buku',
-            'books' => Buku::latest()->filter(request(['search', 'category', 'author']))->get()
+            'books' => Buku::latest()->filter(request(['search', 'category', 'author']))->paginate(3)->withQueryString()
         ]);
     }
 
