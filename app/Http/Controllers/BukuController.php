@@ -24,7 +24,6 @@ class BukuController extends Controller
 
         return view('book-loan', [
             'title' => 'All Books' . $title,
-            'active' => 'buku',
             'books' => Buku::latest()->filter(request(['search', 'category', 'author']))->paginate(3)->withQueryString()
         ]);
     }
@@ -32,7 +31,6 @@ class BukuController extends Controller
     public function show(Buku $buku){
         return view('book', [
             'title' => 'Buku',
-            'active' => 'buku',
             'book'  => $buku
         ]);
     }

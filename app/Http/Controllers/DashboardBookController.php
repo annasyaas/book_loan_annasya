@@ -14,7 +14,9 @@ class DashboardBookController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.books.index', [
+            'books' => Buku::where('user_id', auth()->user()->id)->get()
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class DashboardBookController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.books.create');
     }
 
     /**
@@ -46,7 +48,9 @@ class DashboardBookController extends Controller
      */
     public function show(Buku $buku)
     {
-        //
+        return view('dashboard.books.show', [
+            'buku' => $buku
+        ]);
     }
 
     /**

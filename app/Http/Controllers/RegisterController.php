@@ -10,8 +10,7 @@ class RegisterController extends Controller
 {
     public function index(){
         return view('register.index',[
-            'title'  => 'registasi',
-            'active' => 'register'
+            'title'  => 'registasi'
         ]);
     }
 

@@ -20,8 +20,7 @@ use App\Http\Controllers\RegisterController;
 
 Route::get('/', function () {
     return view('landing-page', [
-        'title'  => "Beranda",
-        'active' => 'beranda'
+        'title'  => "Beranda"
     ]);
 });
 
@@ -32,7 +31,6 @@ Route::get('/bukus/{buku:slug}', [BukuController::class, 'show']);
 Route::get('/categories', function() {
     return view('categories', [
         'title' => 'Categories',
-        'active' => 'kategori',
         'categories' => Category::all()
     ]);
 });
@@ -44,8 +42,10 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('/register', [RegisterController::class, 'index'])->middleware('guest');
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/dashboard', function(){
+Route::get('/dashboard', function() {
     return view('dashboard.index');
 })->middleware('auth');
 
-Route::resource('/dashboard/books', [DashboardBookController::class])->middleware('auth');
+// Route::get('/dashboard/buku/{buku:slug}', [DashboardBookController::class, 'show']);
+
+Route::resource('/dashboard/buku', DashboardBookController::class)->middleware('auth');

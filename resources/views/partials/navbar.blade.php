@@ -7,13 +7,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link {{ ($active === 'beranda') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
+            <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ ($active === 'buku') ? 'active' : '' }}" aria-current="page" href="/buku">Daftar Buku</a>
+            <a class="nav-link {{ Request::is('buku') ? 'active' : '' }}" aria-current="page" href="/buku">Daftar Buku</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ ($active === 'kategori') ? 'active' : '' }}" href="/categories">Kategori</a>
+            <a class="nav-link {{ Request::is('categories') ? 'active' : '' }}" href="/categories">Kategori</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">
@@ -37,7 +37,7 @@
           </li>
           @else
           <li class="nav-item">
-            <a class="nav-link {{ ($active === 'login') ? 'active' : '' }}" href="/login"><i class="bi bi-box-arrow-in-right"></i>  Login</a>
+            <a class="nav-link {{ Request::is('login') ? 'active' : '' }}" href="/login"><i class="bi bi-box-arrow-in-right"></i>  Login</a>
           </li>
           @endauth
         </ul>
