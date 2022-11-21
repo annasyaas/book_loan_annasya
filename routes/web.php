@@ -46,6 +46,6 @@ Route::get('/dashboard', function() {
     return view('dashboard.index');
 })->middleware('auth');
 
-// Route::get('/dashboard/buku/{buku:slug}', [DashboardBookController::class, 'show']);
+Route::get('/dashboard/buku/cekSlug', [DashboardBookController::class, 'cekSlug'])->middleware('auth');
 
 Route::resource('/dashboard/buku', DashboardBookController::class)->middleware('auth');

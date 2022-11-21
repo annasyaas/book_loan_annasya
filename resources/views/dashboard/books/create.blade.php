@@ -5,17 +5,45 @@
         <h1 class="h2">Form Tambah Buku</h1>
     </div>
     <div class="col-lg-8">
-        <form>
+        <form method="post" action="/dashboard/buku">
+            @csrf
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                <label for="judul" class="form-label">Judul Buku</label>
+                <input type="text" class="form-control" id="judul" name="judul">
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label for="slug" class="form-label">Slug</label>
+                <input type="text" class="form-control" id="slug" name="slug" readonly>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="mb-3">
+                <label for="kategori_id" class="form-label">Kategori</label>
+                <select class="form-select" name="kategori_id">
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="body" class="form-label">Body</label>
+                <input id="body" type="hidden" name="body">
+                <trix-editor input="body"></trix-editor>
+            </div>
+            <button type="submit" class="btn btn-primary">Tambah Buku</button>
         </form>
     </div>
+
+    <script>
+        const judul = document.querySelector('#judul');
+        const slug = document.querySelector('#slug');
+
+        judul.addEventListener('change', function() {
+            fetch('/dashboard/buku/cekSlug?title=' + judul.value)
+                .then(response => response.json())
+                .then(data => slug.value = data.slug)
+        });
+
+        document.addEventListener('trix-file-accept', function(e){
+            e.preventDefault();
+        });
+    </script>
 @endsection
