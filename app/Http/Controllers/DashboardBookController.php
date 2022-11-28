@@ -41,7 +41,17 @@ class DashboardBookController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $validatedData = $request->validate([
+            'judul'     => 'required|max:255',
+            'slug'      => 'required|unique:bukus',
+            'category_id'   => 'required',
+            'desc'      => 'required'
+        ]);
+        $validatedData['user_id'] = auth()->user()->id;
+        
+        Buku::create($validatedData);
+
+        return redirect('dashboard/buku')->with('success', 'New book has been added ');
     }
 
     /**

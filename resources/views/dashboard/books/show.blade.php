@@ -6,17 +6,19 @@
     </div>
     <div>
         <article>
-            <h5 class="mb-3">{{ $buku->judul }}</h5>
+            <h3 class="mb-3"><b>{{ $buku->judul }}</b></h3>
             <a href="/dashboard/buku" class="btn btn-success">
                 <span data-feather="arrow-left"></span> Back to my post
-            </a> 
+            </a>
             <a href="/dashboard/buku/edit" class="btn btn-warning">
                 <span data-feather="edit"></span> Edit
-            </a> 
+            </a>
             <a href="/dashboard/buku/destroy" class="btn btn-danger">
                 <span data-feather="x-circle"></span> Delete
             </a>
-            <h5 class="mt-3">{{ $buku->desc }}</h5>
+            <div class="col-lg-8">
+                <p class="mt-3">{!! $buku->desc !!}</p>
+            </div>
         </article>
     </div>
 @endsection
