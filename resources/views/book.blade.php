@@ -8,7 +8,7 @@
         <h6>By <a href="/user/{{ $book->user->username }}" class="text-decoration-none"> {{ $book->user->name }} </a> in 
             <a href="/categories/{{ $book->category->slug }}">
             {{ $book->category->name }}</a></h6>
-        <h5>{{ $book->desc }}</h5>
+        <h5>{!! $book->desc !!}</h5>
     </article>
     <br>
     <a href="/pinjam">Back</a>

@@ -41,7 +41,7 @@
                             {{ $book->created_at->diffForHumans() }}
                         </small>
                       </p>
-                      <p class="card-text">{{ $book->desc }}</p>
+                      <p class="card-text">{!! $book->desc !!}</p>
                     </div>
                 </div>
             </div>

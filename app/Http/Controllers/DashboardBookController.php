@@ -75,7 +75,10 @@ class DashboardBookController extends Controller
      */
     public function edit(Buku $buku)
     {
-        //
+        return view('dashboard.books.edit', [
+            'buku'  => $buku,
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -87,7 +90,24 @@ class DashboardBookController extends Controller
      */
     public function update(Request $request, Buku $buku)
     {
-        //
+        $rules = [
+            'judul'     => 'required|max:255',
+            'category_id'   => 'required',
+            'desc'      => 'required'
+        ];
+
+        if($request->slug != $buku->slug){
+            $rules['slug'] = 'required|unique:bukus';
+        }
+
+        $validatedData['user_id'] = auth()->user()->id;
+
+        $validatedData = $request->validate($rules);
+
+        Buku::where('id', $buku->id)
+            ->update($validatedData);
+
+        return redirect('dashboard/buku')->with('success', 'Book has been updated!');
     }
 
     /**
@@ -98,7 +118,9 @@ class DashboardBookController extends Controller
      */
     public function destroy(Buku $buku)
     {
-        //
+        Buku::destroy($buku->id);
+
+        return redirect('dashboard/buku')->with('success', 'Book has been deleted');
     }
 
     public function cekSlug(Request $request)
