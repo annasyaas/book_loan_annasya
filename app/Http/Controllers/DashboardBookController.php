@@ -6,6 +6,7 @@ use App\Models\Buku;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardBookController extends Controller
 {

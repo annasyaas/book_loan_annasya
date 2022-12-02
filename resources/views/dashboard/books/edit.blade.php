@@ -11,34 +11,51 @@
             <div class="mb-3">
                 <label for="judul" class="form-label">Judul Buku</label>
                 <input type="text" class="form-control @error('judul') is-invalid @enderror" id="judul" name="judul"
-                value="{{ old('judul', $buku->judul) }}" required autofocus>
+                    value="{{ old('judul', $buku->judul) }}" required autofocus>
                 @error('judul')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="slug" class="form-label">Slug</label>
                 <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug"
-                value="{{ old('slug', $buku->slug) }}" readonly required>
+                    value="{{ old('slug', $buku->slug) }}" readonly required>
                 @error('slug')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="category_id" class="form-label">Kategori</label>
                 <select class="form-select" name="category_id">
                     @foreach ($categories as $category)
-                    @if (old('category_id', $buku->category->id) == $category->id)
-                    <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-                    @else
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                    @endif
+                        @if (old('category_id', $buku->category->id) == $category->id)
+                            <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                        @else
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endif
                     @endforeach
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Post Image</label>
+                @if ($buku->image)
+                    <img class="imagePreview img-fluid mb-3 col-sm-5 d-block">
+                @else
+                    <img class="imagePreview img-fluid mb-3 col-sm-5">
+                @endif
+                    <input type="file" name="image" id="image" class="form-control 
+                    
+                @error('image') is-invalid @enderror"
+                    onchange="imagePreview()">
+                @error('image')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
             </div>
             <div class="mb-3">
                 <label for="desc" class="form-label">Body</label>
@@ -68,5 +85,20 @@
         document.addEventListener('trix-file-accept', function(e) {
             e.preventDefault();
         });
+
+        function imagePreview() {
+            const image = document.querySelector('#image');
+            const imagePreview = document.querySelector('.imagePreview');
+
+            imagePreview.style.display = 'block';
+
+            const oFReader = new FileReader();
+            oFReader.readAsDataURL(image.files[0]);
+
+            oFReader.onload = function(oFREvent) {
+                imagePreview.src = oFREvent.target.result;
+            }
+
+        }
     </script>
 @endsection

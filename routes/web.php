@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminCategoryController;
 use App\Models\Category; 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
@@ -49,3 +50,5 @@ Route::get('/dashboard', function() {
 Route::get('/dashboard/buku/cekSlug', [DashboardBookController::class, 'cekSlug'])->middleware('auth');
 
 Route::resource('/dashboard/buku', DashboardBookController::class)->middleware('auth');
+
+Route::resource('/dashboard/categories', AdminCategoryController::class)->except('show')->middleware('admin');
