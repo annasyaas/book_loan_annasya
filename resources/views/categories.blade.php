@@ -2,7 +2,6 @@
 
 @section('container')
     <h1>Halaman {{ $title }}</h1>
-    
     <div class="container my-5">
         <div class="row justify-content-center">
             @foreach ($categories as $category)

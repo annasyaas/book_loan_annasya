@@ -15,11 +15,16 @@ class CreateBukusTable extends Migration
     {
         Schema::create('bukus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('category_id');
-            $table->foreignId('user_id');
-            $table->string('judul');
+            $table->foreignId('loan_id');
+            $table->foreignId('similarity_id');
+            $table->foreignId('reccomendation_id');
+            $table->string('title');
+            $table->string('publisher');
+            $table->string('call_numb');
+            $table->string('isbn_issn');
+            $table->string('place_publish');
+            $table->integer('copy')->nullable();
             $table->string('slug')->unique();
-            $table->text('desc');
             $table->timestamps();
         });
     }
